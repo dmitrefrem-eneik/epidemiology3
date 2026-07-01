@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { browser } from '$app/environment';
+	import { base } from '$app/paths';
 	import { FileText, ChevronRight, Calendar } from '@lucide/svelte';
 	import Fuse from 'fuse.js';
 	let { data } = $props();
@@ -56,7 +57,7 @@
 <div class="grid grid-cols-1 gap-4">
 	{#each postsToDisplay as post}
 		<a
-			href="/kb/{post.slug}"
+			href="{base}/kb/{post.slug}"
 			class="group p-5 bg-white rounded-xl border shadow-sm hover:border-primary/50 hover:shadow-md transition-all flex items-center justify-between"
 		>
 			<div class="flex items-center gap-4">

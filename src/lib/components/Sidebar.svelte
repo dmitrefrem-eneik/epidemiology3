@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { browser } from '$app/environment';
+	import { base } from '$app/paths';
 	import { cn } from '$lib/utils';
 	import {
 		FileText,
@@ -12,12 +13,12 @@
 	} from '@lucide/svelte';
 
 	const menuItems = [
-		{ name: 'Все документы', href: '/kb', icon: LayoutDashboard },
-		{ name: 'Нормативная база', href: '/kb?category=normative', icon: FileText },
-		{ name: 'Учебно-методические', href: '/kb?category=academic', icon: GraduationCap },
-		{ name: 'Практика и отчетность', href: '/kb?category=practice', icon: Briefcase },
-		{ name: 'Стипендии', href: '/kb?category=stipends', icon: Coins },
-		{ name: 'Архив', href: '/kb?category=archive', icon: Archive },
+		{ name: 'Все документы', href: `${base}/kb`, icon: LayoutDashboard },
+		{ name: 'Нормативная база', href: `${base}/kb?category=normative`, icon: FileText },
+		{ name: 'Учебно-методические', href: `${base}/kb?category=academic`, icon: GraduationCap },
+		{ name: 'Практика и отчетность', href: `${base}/kb?category=practice`, icon: Briefcase },
+		{ name: 'Стипендии', href: `${base}/kb?category=stipends`, icon: Coins },
+		{ name: 'Архив', href: `${base}/kb?category=archive`, icon: Archive }
 	];
 </script>
 

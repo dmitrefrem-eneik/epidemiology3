@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Search from '$lib/components/Search.svelte';
+	import { base } from '$app/paths';
 	import {
 		ShieldCheck,
 		GraduationCap,
@@ -16,7 +17,7 @@
 			icon: ShieldCheck,
 			color: 'text-blue-600',
 			bg: 'bg-blue-100',
-			href: '/kb?category=normative'
+			href: `${base}/kb?category=normative`
 		},
 		{
 			title: 'Учебно-методические материалы',
@@ -24,7 +25,7 @@
 			icon: GraduationCap,
 			color: 'text-emerald-600',
 			bg: 'bg-emerald-100',
-			href: '/kb?category=academic'
+			href: `${base}/kb?category=academic`
 		},
 		{
 			title: 'Практика и ГИА',
@@ -32,7 +33,7 @@
 			icon: ClipboardCheck,
 			color: 'text-purple-600',
 			bg: 'bg-purple-100',
-			href: '/kb?category=practice'
+			href: `${base}/kb?category=practice`
 		},
 		{
 			title: 'Финансы и стипендии',
@@ -40,7 +41,7 @@
 			icon: Wallet,
 			color: 'text-amber-600',
 			bg: 'bg-amber-100',
-			href: '/kb?category=stipends'
+			href: `${base}/kb?category=stipends`
 		}
 	];
 </script>

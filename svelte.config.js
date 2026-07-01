@@ -22,7 +22,7 @@ const config = {
 			strict: true
 		}),
 		paths: {
-			base: process.env.NODE_ENV === 'production' ? '' : '', // Update if deploying to a subfolder
+			base: process.env.NODE_ENV === 'production' ? '/epidemiology3' : ''
 		}
 	}
 };
