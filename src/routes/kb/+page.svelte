@@ -1,6 +1,10 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { FileText, ChevronRight, Calendar } from '@lucide/svelte';
 	let { data } = $props();
+
+	const category = $derived(page.url.searchParams.get('category'));
+	const query = $derived(page.url.searchParams.get('q'));
 
 	const categoryNames: Record<string, string> = {
 		normative: 'Нормативная база',
@@ -9,23 +13,31 @@
 		stipends: 'Стипендии и финансы',
 		archive: 'Архив документов'
 	};
+
+	const filteredPosts = $derived(data.posts.filter(p => {
+		const matchesCategory = !category || p.category === category;
+		const matchesQuery = !query ||
+			p.title.toLowerCase().includes(query.toLowerCase()) ||
+			p.description?.toLowerCase().includes(query.toLowerCase());
+		return matchesCategory && matchesQuery;
+	}));
 </script>
 
 <div class="mb-8">
 	<h1 class="text-3xl font-bold text-slate-900 mb-2">
-		{#if data.query}
-			Результаты поиска: "{data.query}"
+		{#if query}
+			Результаты поиска: "{query}"
 		{:else}
-			{data.category ? categoryNames[data.category] || data.category : 'Все документы'}
+			{category ? categoryNames[category] || category : 'Все документы'}
 		{/if}
 	</h1>
 	<p class="text-slate-500">
-		Найдено {data.posts.length} документов
+		Найдено {filteredPosts.length} документов
 	</p>
 </div>
 
 <div class="grid grid-cols-1 gap-4">
-	{#each data.posts as post}
+	{#each filteredPosts as post}
 		<a
 			href="/kb/{post.slug}"
 			class="group p-5 bg-white rounded-xl border shadow-sm hover:border-primary/50 hover:shadow-md transition-all flex items-center justify-between"

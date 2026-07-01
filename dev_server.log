@@ -153,3 +153,13 @@ Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/app/node_modules/lucide-svelt
 9:37:10 AM [vite] (ssr) page reload src/routes/+page.svelte
 9:37:10 AM [vite] (ssr) page reload src/lib/components/Navbar.svelte
 9:37:10 AM [vite] (ssr) page reload src/lib/components/Search.svelte
+svelte config changed, restarting vite dev-server. changed file: /app/svelte.config.js
+svelte config changed, restarting vite dev-server. changed file: /app/svelte.config.js
+12:24:55 PM [vite] (client) Re-optimizing dependencies because lockfile has changed
+12:24:55 PM [vite] (ssr) Re-optimizing dependencies because lockfile has changed
+12:24:56 PM [vite] (ssr) [optimizer] bundling dependencies...
+12:24:56 PM [vite] (client) [optimizer] scanning dependencies...
+12:25:04 PM [vite] (client) [optimizer] bundling dependencies...
+12:25:05 PM [vite] server restarted.
+svelte config changed, restarting vite dev-server. changed file: /app/svelte.config.js
+12:26:23 PM [vite] server restarted.
