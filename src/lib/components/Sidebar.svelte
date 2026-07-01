@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { browser } from '$app/environment';
 	import { cn } from '$lib/utils';
 	import {
 		FileText,
@@ -33,7 +34,7 @@
 						href={item.href}
 						class={cn(
 							"group flex items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-primary/10 hover:text-primary transition-all",
-							page.url.pathname + page.url.search === item.href ? "bg-primary/10 text-primary" : "text-muted-foreground"
+							(page.url.pathname + (browser ? page.url.search : '')).startsWith(item.href) ? "bg-primary/10 text-primary" : "text-muted-foreground"
 						)}
 					>
 						<Icon class="mr-3 h-4 w-4" />

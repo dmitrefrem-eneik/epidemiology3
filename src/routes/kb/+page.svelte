@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { browser } from '$app/environment';
 	import { FileText, ChevronRight, Calendar } from '@lucide/svelte';
 	let { data } = $props();
 
-	const category = $derived(page.url.searchParams.get('category'));
-	const query = $derived(page.url.searchParams.get('q'));
+	const category = $derived(browser ? page.url.searchParams.get('category') : null);
+	const query = $derived(browser ? page.url.searchParams.get('q') : null);
 
 	const categoryNames: Record<string, string> = {
 		normative: 'Нормативная база',
