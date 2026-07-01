@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Calendar, Tag, ChevronRight } from '@lucide/svelte';
+	import { base } from '$app/paths';
 	let { data } = $props();
 	const Content = $derived(data.content);
 	const meta = $derived(data.meta);
@@ -20,12 +21,12 @@
 <nav class="flex mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
 	<ol class="inline-flex items-center space-x-1 md:space-x-3">
 		<li class="inline-flex items-center">
-			<a href="/kb" class="hover:text-primary transition-colors">База знаний</a>
+			<a href="{base}/kb" class="hover:text-primary transition-colors">База знаний</a>
 		</li>
 		<li>
 			<div class="flex items-center">
 				<ChevronRight class="h-4 w-4 mx-1" />
-				<a href="/kb?category={meta.category}" class="hover:text-primary transition-colors">
+				<a href="{base}/kb?category={meta.category}" class="hover:text-primary transition-colors">
 					{categoryNames[meta.category] || meta.category}
 				</a>
 			</div>
