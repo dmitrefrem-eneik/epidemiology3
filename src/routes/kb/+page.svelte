@@ -3,7 +3,6 @@
 	import { browser } from '$app/environment';
 	import { base } from '$app/paths';
 	import { FileText, ChevronRight, Calendar } from '@lucide/svelte';
-	import Fuse from 'fuse.js';
 	let { data } = $props();
 
 	const category = $derived(browser ? page.url.searchParams.get('category') : null);
@@ -17,28 +16,13 @@
 		archive: 'Архив документов'
 	};
 
-	const fuse = $derived(new Fuse(data.posts, {
-		keys: ['title', 'description', 'category'],
-		threshold: 0.3
+	const filteredPosts = $derived(data.posts.filter(p => {
+		const matchesCategory = !category || p.category === category;
+		const matchesQuery = !query ||
+			p.title.toLowerCase().includes(query.toLowerCase()) ||
+			p.description?.toLowerCase().includes(query.toLowerCase());
+		return matchesCategory && matchesQuery;
 	}));
-
-	const filteredPosts = $derived(() => {
-		let posts = data.posts;
-		if (category) {
-			posts = posts.filter(p => p.category === category);
-		}
-		if (query) {
-			// If we already filtered by category, we should search within that subset
-			// or just search everything and filter results.
-			// Fuse doesn't easily support "search within this array" without recreating,
-			// but we can just use the search results and filter by category.
-			const searchResults = fuse.search(query).map(r => r.item);
-			posts = searchResults.filter(p => !category || p.category === category);
-		}
-		return posts;
-	});
-
-	const postsToDisplay = $derived(filteredPosts());
 </script>
 
 <div class="mb-8">
@@ -50,12 +34,12 @@
 		{/if}
 	</h1>
 	<p class="text-slate-500">
-		Найдено {postsToDisplay.length} документов
+		Найдено {filteredPosts.length} документов
 	</p>
 </div>
 
 <div class="grid grid-cols-1 gap-4">
-	{#each postsToDisplay as post}
+	{#each filteredPosts as post}
 		<a
 			href="{base}/kb/{post.slug}"
 			class="group p-5 bg-white rounded-xl border shadow-sm hover:border-primary/50 hover:shadow-md transition-all flex items-center justify-between"
