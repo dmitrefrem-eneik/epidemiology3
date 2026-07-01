@@ -3,6 +3,7 @@
 	import { browser } from '$app/environment';
 	import { base } from '$app/paths';
 	import { FileText, ChevronRight, Calendar } from '@lucide/svelte';
+	import Fuse from 'fuse.js';
 	let { data } = $props();
 
 	const category = $derived(browser ? page.url.searchParams.get('category') : null);
@@ -16,13 +17,22 @@
 		archive: 'Архив документов'
 	};
 
-	const filteredPosts = $derived(data.posts.filter(p => {
-		const matchesCategory = !category || p.category === category;
-		const matchesQuery = !query ||
-			p.title.toLowerCase().includes(query.toLowerCase()) ||
-			p.description?.toLowerCase().includes(query.toLowerCase());
-		return matchesCategory && matchesQuery;
-	}));
+	const fuse = $derived(
+		new Fuse(data.posts, {
+			keys: ['title', 'description', 'category'],
+			threshold: 0.3
+		})
+	);
+
+	const filteredPosts = $derived.by(() => {
+		let posts = query ? fuse.search(query).map((r) => r.item) : data.posts;
+
+		if (category) {
+			posts = posts.filter((p) => p.category === category);
+		}
+
+		return posts;
+	});
 </script>
 
 <div class="mb-8">
